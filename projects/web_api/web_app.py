@@ -16,10 +16,13 @@ from loguru import logger
 
 import magic_pdf.model as model_config
 from magic_pdf.config.enums import SupportedPdfParseMethod
-from magic_pdf.data.data_reader_writer import FileBasedDataWriter
+from magic_pdf.data.data_reader_writer import DataWriter, FileBasedDataWriter
+from magic_pdf.data.data_reader_writer.s3 import S3DataReader, S3DataWriter
 from magic_pdf.data.dataset import PymuDocDataset
+from magic_pdf.libs.config_reader import get_bucket_name, get_s3_config
 from magic_pdf.model.doc_analyze_by_custom_model import doc_analyze
 from magic_pdf.operators.models import InferenceResult
+from magic_pdf.operators.pipes import PipeResult
 
 model_config.__use_inside_model__ = True
 

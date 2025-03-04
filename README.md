@@ -47,6 +47,19 @@ Easier to use: Just grab MinerU Desktop. No coding, no login, just a simple inte
 </div>
 
 # Changelog
+- 2025/03/03 1.2.1 released, fixed several bugs:
+  - Fixed the impact on punctuation marks during full-width to half-width conversion of letters and numbers
+  - Fixed caption matching inaccuracies in certain scenarios
+  - Fixed formula span loss issues in certain scenarios
+- 2025/02/24 1.2.0 released. This version includes several fixes and improvements to enhance parsing efficiency and accuracy:
+  - Performance Optimization
+    - Increased classification speed for PDF documents in auto mode.
+  - Parsing Optimization
+    - Improved parsing logic for documents containing watermarks, significantly enhancing the parsing results for such documents.
+    - Enhanced the matching logic for multiple images/tables and captions within a single page, improving the accuracy of image-text matching in complex layouts.
+  - Bug Fixes
+    - Fixed an issue where image/table spans were incorrectly filled into text blocks under certain conditions.
+    - Resolved an issue where title blocks were empty in some cases.
 - 2025/01/22 1.1.0 released. In this version we have focused on improving parsing accuracy and efficiency:
   - Model capability upgrade (requires re-executing the [model download process](docs/how_to_download_models_en.md) to obtain incremental updates of model files)
     - The layout recognition model has been upgraded to the latest `doclayout_yolo(2501)` model, improving layout recognition accuracy.
@@ -244,8 +257,8 @@ Synced with dev branch updates:
 #### 1. Install magic-pdf
 
 ```bash
-conda create -n MinerU python=3.10
-conda activate MinerU
+conda create -n mineru python=3.10
+conda activate mineru
 pip install -U "magic-pdf[full]" --extra-index-url https://wheels.myhloli.com
 ```
 
@@ -305,7 +318,7 @@ If your device supports CUDA and meets the GPU requirements of the mainline envi
   ```bash
   wget https://github.com/opendatalab/MinerU/raw/master/docker/global/Dockerfile -O Dockerfile
   docker build -t mineru:latest .
-  docker run --rm -it --gpus=all mineru:latest /bin/bash -c "echo 'source /opt/mineru_venv/bin/activate' >> ~/.bashrc && exec bash"
+  docker run -it --name mineru --gpus=all mineru:latest /bin/bash -c "echo 'source /opt/mineru_venv/bin/activate' >> ~/.bashrc && exec bash"
   magic-pdf --help
   ```
 

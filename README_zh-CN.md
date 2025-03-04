@@ -46,6 +46,20 @@
 </div>
 
 # 更新记录
+- 2025/03/03 1.2.1 发布，修复了一些问题：
+  - 修复在字母与数字的全角转半角操作时对标点符号的影响
+  - 修复在某些情况下caption的匹配不准确问题
+  - 修复在某些情况下的公式span丢失问题
+- 2025/02/24 1.2.0 发布，这个版本我们修复了一些问题，提升了解析的效率与精度：
+  - 性能优化 
+    - auto模式下pdf文档的分类速度提升
+    - 在华为昇腾 NPU 加速模式下，添加高性能插件支持，常见场景下端到端加速可达 300% [申请链接](https://aicarrier.feishu.cn/share/base/form/shrcnb10VaoNQB8kQPA8DEfZC6d)
+  - 解析优化
+    - 优化对包含水印文档的解析逻辑，显著提升包含水印文档的解析效果
+    - 改进了单页内多个图像/表格与caption的匹配逻辑，提升了复杂布局下图文匹配的准确性
+  - 问题修复
+    - 修复在某些情况下图片/表格span被填充进textblock导致的异常
+    - 修复在某些情况下标题block为空的问题
 - 2025/01/22 1.1.0 发布，在这个版本我们重点提升了解析的精度与效率：
   - 模型能力升级（需重新执行[模型下载流程](docs/how_to_download_models_zh_cn.md)以获得模型文件的增量更新） 
     - 布局识别模型升级到最新的`doclayout_yolo(2501)`模型，提升了layout识别精度
@@ -248,8 +262,8 @@ https://github.com/user-attachments/assets/4bea02c9-6d54-4cd6-97ed-dff14340982c
 > 最新版本国内镜像源同步可能会有延迟，请耐心等待
 
 ```bash
-conda create -n MinerU python=3.10
-conda activate MinerU
+conda create -n mineru python=3.10
+conda activate mineru
 pip install -U "magic-pdf[full]" --extra-index-url https://wheels.myhloli.com -i https://mirrors.aliyun.com/pypi/simple
 ```
 
@@ -308,7 +322,7 @@ pip install -U "magic-pdf[full]" --extra-index-url https://wheels.myhloli.com -i
   ```bash
   wget https://gcore.jsdelivr.net/gh/opendatalab/MinerU@master/docker/china/Dockerfile -O Dockerfile
   docker build -t mineru:latest .
-  docker run --rm -it --gpus=all mineru:latest /bin/bash -c "echo 'source /opt/mineru_venv/bin/activate' >> ~/.bashrc && exec bash"
+  docker run -it --name mineru --gpus=all mineru:latest /bin/bash -c "echo 'source /opt/mineru_venv/bin/activate' >> ~/.bashrc && exec bash"
   magic-pdf --help
   ```
 ### 使用NPU
